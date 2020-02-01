@@ -1,6 +1,8 @@
 ## Backend Saltiest-Hacker-News-Trolls
 
-Endpoints: /api/users - gets all users
+# Endpoints: 
+
+- /api/users - gets all users
 
 - post /api/register - adds user to database with username and password objects
 
