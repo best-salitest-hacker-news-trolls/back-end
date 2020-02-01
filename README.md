@@ -17,4 +17,4 @@
 
 - put /api/users/:id/comments/:commentId - updates specific comments based off commentId for specific user
 
-- delete /api/users/:id/comments/:commentId - posts specific comments based off commentId for specific user
+- delete /api/users/:id/comments/:commentId - deletes specific comment based off commentId for specific user
