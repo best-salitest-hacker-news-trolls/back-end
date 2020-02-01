@@ -11,12 +11,17 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      filename: './saltiest.db3'
+      filename: './saltiest.db3',
+      host:'localhost', 
+      port: 5432, 
+      user: localPg.user, 
+      password: localPg.password, 
+      database: localPg.database,
     }
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: localPg.database,
       user:     localPg.user,
@@ -32,7 +37,7 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     useNullAsDefault: true, 
     connection: localPg,
     migrations: {
