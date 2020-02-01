@@ -8,13 +8,8 @@
 
 - post /api/login - logs user in with username and password objects
 
+- get /api/users/:id/favorites/
 
-- post /api/users/:id/comments - user comments based off user id
+- post /api/users/:id/favorites/
 
-- get /api/users/:id/comments/:commentId - gets specific comments based off commentId for specific user
-
-- post /api/users/:id/comments/:commentId - posts specific comments based off commentId for specific user
-
-- put /api/users/:id/comments/:commentId - updates specific comments based off commentId for specific user
-
-- delete /api/users/:id/comments/:commentId - deletes specific comment based off commentId for specific user
+- delete /api/users/:id/favorites/:favoriteId
