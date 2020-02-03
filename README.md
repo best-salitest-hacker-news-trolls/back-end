@@ -13,3 +13,4 @@
 - post /api/users/:id/favorites/
 
 - delete /api/users/:id/favorites/:favoriteId
+
