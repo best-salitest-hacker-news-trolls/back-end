@@ -6,27 +6,19 @@ const localPg = {
   password: 'postgres', 
   database: 'saltiest_hacker', 
 }
+const heroku = process.env.DATABASE_URL + '?ssl=true'
+
+const localPGConnection = `postgres://postgres:postgres@localhost/saltiest_hacker`
 module.exports = {
 
   development: {
     client: 'pg',
-    connection: {
-      filename: './saltiest.db3',
-      host:'localhost', 
-      port: 5432, 
-      user: localPg.user, 
-      password: localPg.password, 
-      database: localPg.database,
-    }
+    connection: localPGConnection
   },
 
   staging: {
     client: 'pg',
-    connection: {
-      database: localPg.database,
-      user:     localPg.user,
-      password: localPg.password
-    },
+    connection: localPGConnection,
     pool: {
       min: 2,
       max: 10
@@ -39,7 +31,7 @@ module.exports = {
   production: {
     client: 'pg',
     useNullAsDefault: true, 
-    connection: localPg,
+    connection: heroku,
     migrations: {
       directory: './migrations'
     },
