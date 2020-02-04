@@ -7,6 +7,10 @@ module.exports = {
     findBy, 
     addFav, 
     findUserFav, 
+    findUserById, 
+    insertFavorite, 
+    getFav, 
+    deleteFav, 
 
 }
 
@@ -59,25 +63,43 @@ async function addFav(input, userid){
 
 async function findUserFavId(id, userid){
     console.log('favoritesId and userId', id, userid)
-    let project  = await db('user_favorites as UF')
-    .join('users as U', 'U.id', 'user_Fav_FK')
-    .join('Favorites as F', 'F.id', 'UF.Fav_FK')
-    .select('U.id as User_id', 'U.username', 'F.id as Fav_id', 'F.favorite_comments', 'F.fav_salty_score')
-    .where('F.id', id)
-    .where('U.id', userid)
-    return project;
-    
+    let project = await db('Favorites as F')
+    .join('users as U' , 'U.id', 'F.user_id')
+    .select('F.user_id', 'U.username').where('F.user_id', Number(userid) )
+    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score').where('F.id', id)
+    return project  
 }
-async function findUserFav(){
-    let project = await db('Favorites')
-    // let project  = await db('user_favorites as UF')
-    // .join('users as U', 'U.id', 'user_Fav_FK')
-    // .join('Favorites as F', 'F.id', 'UF.Fav_FK')
-    // .select('U.id as User_id', 'U.username', 'F.id as Fav_id', 'F.favorite_comments', 'F.fav_salty_score')
+async function getFav(userid){
+    console.log('favoritesId and userId',userid)
+    let project = await db('Favorites as F')
+    .join('users as U' , 'U.id', 'F.user_id')
+    .select('F.user_id', 'U.username').where('F.user_id', Number(userid) )
+    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score')
+    return project  
+}
+function findUserFav(){
+    return db('Favorites as F')
+    .join('users as U' , 'U.id', 'F.user_id')
+    .select('F.user_id','U.username')
+    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score') 
+}
 
+
+function findUserById(id){
+    return db('users').where({id:Number(id)})
+
+}
+function insertFavorite(favorite){
+    return db('Favorites')
+    .insert(favorite)
+    .then(ids => ({ id: ids[0]}))
+}
+
+async function deleteFav(userid, commentid){
+    let project = await db('Favorites as F')
+    .join('users as U' , 'U.id', 'F.user_id')
+    .select('F.user_id', 'U.username').where('F.user_id', Number(userid) )
+    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score').where('F.id', Number(commentid)).del();
     return project
-    
-    
 }
-
 
