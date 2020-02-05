@@ -43,6 +43,7 @@ router.get('/users', restricted, (req, res) => {
 //         })
 //     })
 // })
+//-----------------------------------------
 router.get('/users/favorites',restricted, (req, res) => { 
     // const id = req.params.id;
     Users.findUserFav()
@@ -95,4 +96,5 @@ router.delete('/users/:id/favorites/:comment_id',restricted, (req, res) => {
         })
     })
 })
+
 module.exports = router;

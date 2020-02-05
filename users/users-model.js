@@ -10,7 +10,8 @@ module.exports = {
     findUserById, 
     insertFavorite, 
     getFav, 
-    deleteFav, 
+    deleteFav,
+    // FKeys,  
 
 }
 
@@ -66,7 +67,7 @@ async function findUserFavId(id, userid){
     let project = await db('Favorites as F')
     .join('users as U' , 'U.id', 'F.user_id')
     .select('F.user_id', 'U.username').where('F.user_id', Number(userid) )
-    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score').where('F.id', id)
+    .select('F.id as comment_id', 'F.Hacker_News_User','F.favorite_comments', 'F.fav_salty_score').where('F.id', id)
     return project  
 }
 async function getFav(userid){
@@ -74,14 +75,14 @@ async function getFav(userid){
     let project = await db('Favorites as F')
     .join('users as U' , 'U.id', 'F.user_id')
     .select('F.user_id', 'U.username').where('F.user_id', Number(userid) )
-    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score')
+    .select('F.id as comment_id', 'F.Hacker_News_User','F.favorite_comments', 'F.fav_salty_score')
     return project  
 }
 function findUserFav(){
     return db('Favorites as F')
     .join('users as U' , 'U.id', 'F.user_id')
     .select('F.user_id','U.username')
-    .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score') 
+    .select('F.id as comment_id', 'F.Hacker_News_User','F.favorite_comments', 'F.fav_salty_score') 
 }
 
 
@@ -102,4 +103,22 @@ async function deleteFav(userid, commentid){
     .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score').where('F.id', Number(commentid)).del();
     return project
 }
+
+
+// userid, commentid
+// .where('F.user_id', Number(userid) )
+// .where('F.id', Number(commentid));
+
+// async function FKeys(){
+//     let project = await db('Favorites as F')
+//     .join('users as U' , 'U.id', 'F.user_id')
+//     .join('user_favorites as UF', 'UF.user_Fav_FK', 'U.id')
+//     .join('UF.Fav_FK', 'F.id')
+    
+//     .select('UF.Fav_FK','UF.user_Fav_FK')
+//     .select('F.user_id', 'U.username')
+//     .select('F.id as comment_id', 'F.favorite_comments', 'F.fav_salty_score')
+//     return project
+// }
+
 

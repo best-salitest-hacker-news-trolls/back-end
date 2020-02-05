@@ -7,12 +7,12 @@ exports.up = function(knex) {
       .unique();
 
       users.string('password', 128).notNullable();
-      users.integer('Users_Salty_Score');
+      users.float('Users_Salty_Score');
   })
   .createTable('Favorites', tbl => { 
     tbl.increments();
-    tbl.string('favorite_comments').notNullable();
-    tbl.integer('fav_salty_score').notNullable();
+    tbl.string('favorite_comments', 2048).notNullable();
+    tbl.float('fav_salty_score').notNullable();
     tbl.integer('user_id', 128)
     .unsigned()
     .notNullable()
@@ -20,6 +20,7 @@ exports.up = function(knex) {
     .inTable('users')
     .onUpdate('CASCADE')
     .onDelete('RESTRICT')
+    tbl.string('Hacker_News_User').notNullable()
   })
   .createTable('user_favorites', tbl => { 
     tbl.increments();
