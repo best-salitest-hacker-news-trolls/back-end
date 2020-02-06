@@ -96,5 +96,15 @@ router.delete('/users/:id/favorites/:comment_id',restricted, (req, res) => {
         })
     })
 })
+router.get('/users/comments', restricted, (req, res) => { 
+    Users.findComments()
+    .then(users => { 
+        res.status(200).json(users)
+    })
+    .catch(err => { 
+        console.log('/users get error: ', err)
+        res.status(500).json({errorMessage: 'could not get users', error: err})
+    })
+})
 
 module.exports = router;

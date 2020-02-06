@@ -39,16 +39,19 @@ exports.up = function(knex) {
     .inTable('Favorites')
     .onUpdate('CASCADE')
     .onDelete('RESTRICT')
-
-
-
-  
+  })
+  .createTable('Comments2', tbl => { 
+    tbl.increments();
+    tbl.string('favorite_comments', 4086).notNullable();
+    tbl.string('fav_salty_score').notNullable();
+    tbl.string('Hacker_News_User').notNullable();
   })
   
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('user_favorites')
+    return knex.schema.dropTableIfExists('Comments2')
+            .dropTableIfExists('user_favorites')
             .dropTableIfExists('Favorites')
             .dropTableIfExists('users')
 };

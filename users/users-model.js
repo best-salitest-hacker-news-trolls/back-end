@@ -11,13 +11,16 @@ module.exports = {
     insertFavorite, 
     getFav, 
     deleteFav,
-    // FKeys,  
+    findComments,  
 
 }
 
 
 function find() {
     return db('users').select('id', 'username','Users_Salty_Score'); 
+}
+function findComments() {
+    return db('Comments2').select('id', 'Hacker_News_User','favorite_comments','fav_salty_score'); 
 }
 
 // function add(name){

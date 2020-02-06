@@ -42,6 +42,21 @@ module.exports = {
       min: 2,
       max: 10
     },
-  }
+  },
+  testing: {
+    client: 'pg',
+    connection: {
+      filename: './test.db3',
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './migrations',
+    },
+    seeds: {
+      directory: './seeds',
+    },
+  },
+ 
+  
 
 };
